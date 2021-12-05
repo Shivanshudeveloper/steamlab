@@ -32,6 +32,8 @@ const Register = () => {
         .then((result) => {
             var user = result.user;
             // Profile Picture being set by default
+            sessionStorage.setItem("userId", user.uid);
+            sessionStorage.setItem("userEmail", user.email);
             user.updateProfile({
                 photoURL: "https://kittyinpink.co.uk/wp-content/uploads/2016/12/facebook-default-photo-male_1-1.jpg",
                 displayName: `${firstname} ${lastname}`

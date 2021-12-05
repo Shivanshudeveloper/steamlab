@@ -20,12 +20,91 @@ import {useDropzone} from "react-dropzone";
 import { v4 as uuid4 } from 'uuid';
 import byteSize from 'byte-size';
 import Chip from '@mui/material/Chip';
-import {storage} from "../Firebase/index";
+import { CircularProgress } from '@mui/material';
+
+import axios from 'axios';
+
+import { storage, auth } from "../Firebase/index";
+import { API_SERVICE } from '../config/URI';
+
+
+
+const ProductList = ({ product }) => {
+  return (
+    <>
+      <TableRow
+        key={product._id}
+        sx={{"&:last-child td, &:last-child th": {border: 0}}}
+      >
+        <TableCell component="th" scope="row">
+          {product.name}
+        </TableCell>
+        <TableCell align="center">{product.cut}</TableCell>
+        <TableCell align="center">{product.content}</TableCell>
+        <TableCell align="center">{product.uploaded_to}</TableCell>
+        <TableCell align="center">
+          <Chip sx={{ backgroundColor: 'blue', color: '#FFFFFF' }} label={product.status} />
+        </TableCell>
+        <TableCell align="center">{product.reception}</TableCell>
+        <TableCell align="center">{product.delivery_date}</TableCell>
+        <TableCell align="center">
+          <Button
+            variant="contained"
+            href={product.publicURL}
+            target="_blank"
+          >
+            Download
+          </Button>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
 
 const UploadNewFile = () => {
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone();
+  const [products, setproducts] = React.useState([]);
 
   const [open, setOpen] = React.useState(false);
+  const [User, setUser] = React.useState({});
+  const [loading, setloading] = React.useState(true);
+
+
+  React.useEffect(() => {
+      var email = sessionStorage.getItem("userEmail");
+      console.log(email);
+      auth.onAuthStateChanged(function(user) {
+          if (user) {
+            setUser(user);
+          }
+      });
+      axios
+        .get(`${API_SERVICE}/api/v1/main/getuserfileuploadedtoserver/${email}`)
+          .then((response) => {
+            setproducts(response.data);
+            setloading(false);
+          })
+          .catch((err) => console.log(err));
+  }, []);
+
+  
+  
+
+  const refreshData = () => {
+    var email = sessionStorage.getItem("userEmail");
+    setloading(true);
+    axios
+      .get(`${API_SERVICE}/api/v1/main/getuserfileuploadedtoserver/${email}`)
+        .then((response) => {
+          setproducts(response.data);
+          setloading(false);
+        })
+        .catch((err) => console.log(err));
+  }
+
+
+
   const [deliveryDate, setDeliveryDate] = React.useState(
     new Date().toLocaleDateString()
   );
@@ -50,6 +129,7 @@ const UploadNewFile = () => {
   const [rows, setRows] = React.useState([]);
   const [progressOpen, setProgressOpen] = React.useState(false);
   const [progressMessage, setProgressMessage] = React.useState("");
+  const [userphone, setuserphone] = React.useState("");
 
   function createData(
     name,
@@ -63,14 +143,14 @@ const UploadNewFile = () => {
     return {name, cut, contentType, uploadedTo, status, desiredReception, date};
   }
 
-  const getPublicURL = async (file) => {
-    try {
-      const url = await storage.ref(`/files/${file}`).getDownloadURL();
-      return url;
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getPublicURL = async (file) => {
+  //   try {
+  //     const url = await storage.ref(`/files/${file}`).getDownloadURL();
+  //     return url;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const firebaseUpload = () => {
     acceptedFiles.forEach((file) => {
@@ -86,23 +166,37 @@ const UploadNewFile = () => {
       setProgressMessage(error);
     },
     async () => {
+        var size = byteSize(file.size);
+        size = `${size.value} ${size.unit}`
         // When the Storage gets Completed
         const filePath = await uploadTask.snapshot.ref.getDownloadURL();
-        const fileKey = `${uniquetwoKey}/${file.name}`;
-        const fileName = `${file.name}`;
+        var uploadData = {
+          useremail: User.email,
+          userfullname: User.displayName,
+          userphone,
+          name: file.path,
+          cut: size,
+          content: file.type,
+          uploaded_to: new Date().toLocaleDateString(),
+          status: "Received",
+          reception: comment,
+          delivery_date: deliveryDate,
+          publicURL: filePath
+        };
+        axios
+          .post(`${API_SERVICE}/api/v1/main/addfileuploadtoserver`, uploadData)
+          .then((response) => {
+            if (response.status === 200) {
+              setProgressOpen(true);
+              setProgressMessage(`File Successfully Send`);
+              refreshData();
+              setInterval(() => {
+                setProgressOpen(false);
+              }, 4000);
+            }
+          })
+          .catch((err) => console.log(err));
     });
-      
-      // storage
-      //   .ref(`/files/${file.path}`)
-      //   .put(file)
-      //   .on("state_changed", (snapshot) => {
-      //     const progress =
-      //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //     setProgressOpen(true);
-      //     setProgressMessage(`Uploaded ${Math.floor(progress)}%`);
-      //   });
-      // const durl = getPublicURL(file);
-      // console.log(durl);
     });
   };
 
@@ -137,14 +231,25 @@ const UploadNewFile = () => {
     handleClose();
   };
 
-  const downloadFiles = async (file) => {
-    try {
-      console.log("clicked");
-      const url = await storage.ref(`/files/${file}`).getDownloadURL();
-      window.open(url, "_blank").focus();
-    } catch (err) {
-      console.log(err);
-    }
+  // const downloadFiles = async (file) => {
+  //   try {
+  //     console.log("clicked");
+  //     const url = await storage.ref(`/files/${file}`).getDownloadURL();
+  //     window.open(url, "_blank").focus();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const showProductList = () => {
+    return products.map((product) => {
+      return (
+        <ProductList
+          product={product}
+          key={product._id}
+        />
+      );
+    });
   };
 
   return (
@@ -206,6 +311,7 @@ const UploadNewFile = () => {
               id="outlined-required"
               fullWidth
               sx={{mt: 2}}
+              onChange={(e) => setuserphone(e.target.value)}
             />
           </Container>
         </DialogContent>
@@ -227,53 +333,36 @@ const UploadNewFile = () => {
         Submit a STL File
       </Button>
       <h1 style={{ marginTop: '45px' }}>Shipment history</h1>
+
+      {loading === true ? (
+        <center style={{ marginTop: "10%" }}>
+          <CircularProgress sx={{ color: "#FFFFFF" }} />
+        </center>
+      ) : (
+        <>
+          <TableContainer component={Paper}>
+            <Table sx={{minWidth: 650}} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell align="center">Cut</TableCell>
+                  <TableCell align="center">Content type</TableCell>
+                  <TableCell align="center">Uploaded to</TableCell>
+                  <TableCell align="center">Status</TableCell>
+                  <TableCell align="center">Desired reception</TableCell>
+                  <TableCell align="center">Delivery date</TableCell>
+                  <TableCell align="center">Download</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {showProductList()}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
       
-      <TableContainer component={Paper}>
-        <Table sx={{minWidth: 650}} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="center">Cut</TableCell>
-              <TableCell align="center">Content type</TableCell>
-              <TableCell align="center">Uploaded to</TableCell>
-              <TableCell align="center">Status</TableCell>
-              <TableCell align="center">Desired reception</TableCell>
-              <TableCell align="center">Delivery date</TableCell>
-              <TableCell align="center">Download</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{"&:last-child td, &:last-child th": {border: 0}}}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="center">{row.cut}</TableCell>
-                <TableCell align="center">{row.contentType}</TableCell>
-                <TableCell align="center">{row.uploadedTo}</TableCell>
-                <TableCell align="center">
-                  <Chip sx={{ backgroundColor: 'blue', color: '#FFFFFF' }} label={row.status} />
-                </TableCell>
-                <TableCell align="center">{row.desiredReception}</TableCell>
-                <TableCell align="center">{row.date}</TableCell>
-                <TableCell align="center">
-                  <Button
-                    variant="contained"
-                    onClick={() => {
-                      downloadFiles(row.name);
-                    }}
-                  >
-                    Download
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      
     </>
   );
 };
