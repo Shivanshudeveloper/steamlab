@@ -19,7 +19,7 @@ import TextField from "@mui/material/TextField";
 import {useDropzone} from "react-dropzone";
 import { v4 as uuid4 } from 'uuid';
 import byteSize from 'byte-size';
-
+import Chip from '@mui/material/Chip';
 import {storage} from "../Firebase/index";
 
 const UploadNewFile = () => {
@@ -122,7 +122,7 @@ const UploadNewFile = () => {
           size,
           file.type,
           new Date().toLocaleDateString(),
-          "Pending",
+          "Received",
           comment,
           deliveryDate
         )
@@ -254,7 +254,9 @@ const UploadNewFile = () => {
                 <TableCell align="center">{row.cut}</TableCell>
                 <TableCell align="center">{row.contentType}</TableCell>
                 <TableCell align="center">{row.uploadedTo}</TableCell>
-                <TableCell align="center">{row.status}</TableCell>
+                <TableCell align="center">
+                  <Chip sx={{ backgroundColor: 'blue', color: '#FFFFFF' }} label={row.status} />
+                </TableCell>
                 <TableCell align="center">{row.desiredReception}</TableCell>
                 <TableCell align="center">{row.date}</TableCell>
                 <TableCell align="center">
