@@ -13,9 +13,18 @@ import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import Logo from './Logo';
+import { auth } from "../Firebase/index";
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
   const [notifications] = useState([]);
+
+  const logout = () => {
+    auth.signOut().then(function() {
+      window.location.href = "/login";
+    }).catch(function(error) {
+        console.log(error);
+    });
+  }
 
   return (
     <AppBar
@@ -28,16 +37,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden xlDown>
-          <IconButton color="inherit" size="large">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit" size="large">
+          <IconButton onClick={logout} color="inherit" size="large">
             <InputIcon />
           </IconButton>
         </Hidden>

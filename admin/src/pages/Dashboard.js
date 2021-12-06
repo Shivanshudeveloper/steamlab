@@ -22,6 +22,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Snackbar from '@material-ui/core/Snackbar';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { auth } from "../Firebase/index";
 
 
 
@@ -76,6 +77,14 @@ const Dashboard = () => {
   const [productview, setproductview] = React.useState([]);
 
   const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    auth.onAuthStateChanged(function(user) {
+        if (!user) {
+            window.location.href = "/login";
+        }
+    });
+}, []);
 
 
   const handleClickOpen = (product) => {
