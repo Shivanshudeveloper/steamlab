@@ -160,4 +160,30 @@ router.get("/getuserfileuploadedtoserver/:useremail", (req, res) => {
 });
 
 
+
+router.get("/getuserallfileuploadedtoserver", (req, res) => {
+  res.setHeader("Content-Type", "application/json");
+  FileUpload_Model.find({}).sort({ date: -1 })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
+
+
+router.get("/changestatusfileupload/:id/:status", (req, res) => {
+  const { id, status } = req.params;
+  res.setHeader("Content-Type", "application/json");
+  FileUpload_Model.findOneAndUpdate(
+    { _id: id },
+    { status },
+    { useFindAndModify: false }
+  )
+    .then(() => {
+      res.status(200).json("Updated Product");
+    })
+    .catch((err) => console.log(err));
+});
+
+
 module.exports = router;
