@@ -281,8 +281,8 @@ const stlfiles = () => {
                 <DialogTitle id="alert-dialog-title">STL File Upload</DialogTitle>
                 <DialogContent>
                 <Container>
-                    <section className="dropzone">
-                    <div {...getRootProps({className: "dsdsd"})}>
+                    <section className="dropzone" {...getRootProps()}>
+                    <div >
                         <input {...getInputProps()} />
                         <p>Drag 'n' drop some files here, or click to select files</p>
                     </div>
