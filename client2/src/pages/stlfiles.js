@@ -50,7 +50,20 @@ const ProductList = ({ product, deleteItem }) => {
           <TableCell align="center">{product.content}</TableCell>
           <TableCell align="center">{product.uploaded_to}</TableCell>
           <TableCell align="center">
-            <Chip sx={{ backgroundColor: 'blue', color: '#FFFFFF' }} label={product.status} />
+            {
+                product.status === "Received" ? (
+                    <Chip sx={{ backgroundColor: '#3366FF', color: '#FFFFFF' }} label={product.status} />
+                ) : product.status === "In process" ? (
+                    <Chip sx={{ backgroundColor: '#FFC311', color: '#000000' }} label={product.status} />
+                ) : product.status === "Delivered" ? (
+                    <Chip sx={{ backgroundColor: '#31CFF7', color: '#000000' }} label={product.status} />
+                ) : product.status === "Invoiced" ? (
+                    <Chip sx={{ backgroundColor: '#4DAA25', color: '#FFFFFF' }} label={product.status} />
+                ) : null
+            }
+
+          
+          
           </TableCell>
           <TableCell align="center">{product.reception}</TableCell>
           <TableCell align="center">{product.delivery_date}</TableCell>
