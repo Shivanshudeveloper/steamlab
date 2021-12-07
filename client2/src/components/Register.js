@@ -9,8 +9,9 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-
+import axios from 'axios';
 import { auth } from '../Firebase';
+import { API_SERVICE } from '../config/URI';
 
 
 
@@ -24,9 +25,11 @@ const Register = () => {
     const [firstname, setfirstname] = useState('');
     const [lastname, setlastname] = useState('');
 
+    const [btndisabled, setbtndisabled] = useState(false);
 
 
     const register = (event) => {
+        setbtndisabled(true);
         event.preventDefault();
         auth.createUserWithEmailAndPassword(email, password)
         .then((result) => {
@@ -39,13 +42,25 @@ const Register = () => {
                 displayName: `${firstname} ${lastname}`
             })
             .then(() => {
-                router.push('/');
+                var uploadData = {
+                    email,
+                    displayName: `${firstname} ${lastname}`,
+                    vat: "",
+                    billingaddress: ""
+                };
+                axios
+                    .post(`${API_SERVICE}/api/v1/main/adduserfileto`, uploadData)
+                    .then((response) => {
+                        router.push('/');
+                    })
+                    .catch((err) => console.log(err));
             })
             .catch(err => console.log(err))
         })
         .catch(function(error) {
             var errorMessage = error.message;
             console.log(errorMessage);
+            setbtndisabled(false);
         });
     }
     return (
@@ -148,6 +163,7 @@ const Register = () => {
                         onClick={register}
                         size="large"
                         type="button"
+                        disabled={btndisabled}
                         variant="contained"
                     >
                         Sign Up Now

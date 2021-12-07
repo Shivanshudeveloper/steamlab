@@ -39,6 +39,11 @@ const items = [
     href: '/app/analytics',
     icon: BarChartIcon,
     title: 'Analytics'
+  },
+  {
+    href: '/app/users',
+    icon: UsersIcon,
+    title: 'Users'
   }
 ];
 

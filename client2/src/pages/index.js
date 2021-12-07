@@ -104,7 +104,7 @@ const Dashboard = () => {
                     >
                       <Budget filesuploaded={statsdata.totalfileuploaded} />
                     </Grid>
-                    <Grid
+                    {/* <Grid
                       item
                       xl={3}
                       lg={3}
@@ -112,7 +112,7 @@ const Dashboard = () => {
                       xs={12}
                     >
                       <TotalCustomers filesdelivered={statsdata.totalfiledelivered} />
-                    </Grid>
+                    </Grid> */}
                     <Grid
                       item
                       xl={3}

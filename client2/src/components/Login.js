@@ -4,7 +4,9 @@ import { Box, Button, Container, Link, TextField, Typography } from '@mui/materi
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 
+import axios from 'axios';
 import { auth } from '../Firebase';
+import { API_SERVICE } from '../config/URI';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -15,24 +17,33 @@ const Login = () => {
 
     const login = (event) => {
         event.preventDefault();
-        auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-            auth.onAuthStateChanged(function(user) {
-                if (user) {
-                    sessionStorage.setItem("userId", user.uid);
-                    sessionStorage.setItem("userEmail", user.email);
-                    router.push({
-                        pathname: '/'
-                    });
+        axios
+            .get(`${API_SERVICE}/api/v1/main/getuseraccesspermissionfileupload/${email}`)
+            .then((response) => {
+                if (response.data[0].access) {
+                    auth.signInWithEmailAndPassword(email, password)
+                        .then(() => {
+                            auth.onAuthStateChanged(function(user) {
+                                if (user) {
+                                    sessionStorage.setItem("userId", user.uid);
+                                    sessionStorage.setItem("userEmail", user.email);
+                                    router.push({
+                                        pathname: '/'
+                                    });
+                                } else {
+                                    // alert("We have send a Verification Link on your Email Address")
+                                }
+                            });
+                        })
+                        .catch(function(error) {
+                            var errorMessage = error.message;
+                            alert(errorMessage);
+                        });
                 } else {
-                    // alert("We have send a Verification Link on your Email Address")
+                    alert("Your Account is Blocked");
                 }
-            });
-        })
-        .catch(function(error) {
-            var errorMessage = error.message;
-            alert(errorMessage);
-        });
+            })
+            .catch((err) => console.log(err));
     }
 
     return (

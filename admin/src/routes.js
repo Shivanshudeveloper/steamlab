@@ -10,6 +10,7 @@ import ProductList from './pages/ProductList';
 import Register from './pages/Register';
 import Settings from './pages/Settings';
 import Analytics from './pages/Analytics';
+import Users from './pages/Users';
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
       { path: 'customers', element: <CustomerList /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'analytics', element: <Analytics /> },
+      { path: 'users', element: <Users /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
       { path: '*', element: <Navigate to="/404" /> }
