@@ -36,7 +36,7 @@ import { API_SERVICE } from '../config/URI';
 
 
 
-const ProductList = ({ product }) => {
+const ProductList = ({ product, deleteItem }) => {
     return (
       <>
         <TableRow
@@ -61,6 +61,13 @@ const ProductList = ({ product }) => {
               target="_blank"
             >
               Download
+            </Button>
+            <Button
+                color="error"
+                onClick={() => deleteItem(product._id)}
+                sx={{ ml: 2 }}
+            >
+              Delete
             </Button>
           </TableCell>
         </TableRow>
@@ -250,11 +257,26 @@ const stlfiles = () => {
     //   }
     // };
 
+    const deleteItem = (id) => {
+        axios
+            .get(
+            `${API_SERVICE}/api/v1/main/deletefileuploadtouser/${id}`
+            )
+            .then((response) => {
+                setProgressOpen(true);
+                setProgressMessage(`Successfully Removed`);
+                refreshData();
+                handleClose();
+            })
+            .catch((err) => console.log(err));
+    }
+
     const showProductList = () => {
         return products.map((product) => {
         return (
             <ProductList
             product={product}
+            deleteItem={deleteItem}
             key={product._id}
             />
         );
@@ -372,7 +394,7 @@ const stlfiles = () => {
                         <TableCell align="center">Status</TableCell>
                         <TableCell align="center">Desired reception</TableCell>
                         <TableCell align="center">Delivery date</TableCell>
-                        <TableCell align="center">Download</TableCell>
+                        <TableCell align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

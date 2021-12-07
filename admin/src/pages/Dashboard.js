@@ -73,6 +73,7 @@ const Dashboard = () => {
   const [loading, setloading] = React.useState(true);
   const [products, setproducts] = React.useState([]);
   const [status, setstatus] = React.useState("Received");
+  const [message, setmessage] = React.useState("Received");
 
   const [productview, setproductview] = React.useState([]);
 
@@ -111,7 +112,7 @@ const Dashboard = () => {
 
   React.useEffect(() => {
       axios
-        .get(`${API_SERVICE}/api/v1/main/getuserallfileuploadedtoserver`)
+        .get(`${API_SERVICE}/api/v1/main/getuserallfileuploadedtoserveradmin`)
           .then((response) => {
             setproducts(response.data);
             setloading(false);
@@ -135,7 +136,7 @@ const Dashboard = () => {
   const refreshData = () => {
     setloading(true);
     axios
-      .get(`${API_SERVICE}/api/v1/main/getuserallfileuploadedtoserver`)
+      .get(`${API_SERVICE}/api/v1/main/getuserallfileuploadedtoserveradmin`)
         .then((response) => {
           setproducts(response.data);
           setloading(false);
@@ -150,6 +151,20 @@ const Dashboard = () => {
         `${API_SERVICE}/api/v1/main/changestatusfileupload/${id}/${status}/${filename}/${email}`
       )
       .then((response) => {
+        setmessage("Status Changed Successfully");
+        refreshData();
+        handleClose();
+      })
+      .catch((err) => console.log(err));
+  }
+
+  const deleteItem = (id) => {
+    axios
+      .get(
+        `${API_SERVICE}/api/v1/main/deletefileuploadto/${id}`
+      )
+      .then((response) => {
+        setmessage("Successfully Removed");
         refreshData();
         handleClose();
       })
@@ -168,7 +183,7 @@ const Dashboard = () => {
         open={openSnackbar}
         autoHideDuration={4000}
         onClose={handleCloseSnackbar}
-        message="Status Changed Successfully"
+        message={message}
       />
 
 
@@ -185,12 +200,23 @@ const Dashboard = () => {
         <center>
           <Button
             fullWidth
-            sx={{ mb: 4 }}
+            variant="contained"
+            sx={{ mb: 2 }}
             size="large"
             href={productview.publicURL}
             target="_blank"
           >
             Download Now
+          </Button>
+          <Button
+            fullWidth
+            color="error"
+            variant="outlined"
+            sx={{ mb: 4 }}
+            size="large"
+            onClick={() => deleteItem(productview._id)}
+          >
+            Delete
           </Button>
         </center>
 
