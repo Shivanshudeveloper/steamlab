@@ -329,7 +329,7 @@ const stlfiles = () => {
                     <TextField
                     id="outlined-multiline-static"
                     fullWidth
-                    label="When do you need it?"
+                    label="Entrez la description..."
                     multiline
                     rows={6}
                     sx={{mt: 2}}
@@ -337,7 +337,7 @@ const stlfiles = () => {
                     onChange={handleChange}
                     />
 
-                    <h4 style={{marginTop: "1rem"}}>When do you need it?</h4>
+                    <h4 style={{marginTop: "1rem"}}>Quand en avez-vous besoin?</h4>
                     <TextField
                     required
                     id="outlined-required"
@@ -351,7 +351,7 @@ const stlfiles = () => {
 
                     <TextField
                     required
-                    label="Phone Number"
+                    label="Numéro de téléphone"
                     id="outlined-required"
                     fullWidth
                     sx={{mt: 2}}
@@ -387,9 +387,9 @@ const stlfiles = () => {
                 variant="contained"
                 size="large"
             >
-                Submit a STL File
+                Envoyer un Fichier STL
             </Button>
-            <h1 style={{ marginTop: '45px' }}>Shipment history</h1>
+            <h1 style={{ marginTop: '45px' }}>Historique des envois</h1>
             {loading === true ? (
                 <center style={{ marginTop: "8%" }}>
                 <CircularProgress color="primary" />
@@ -400,13 +400,13 @@ const stlfiles = () => {
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell align="center">Cut</TableCell>
-                        <TableCell align="center">Content type</TableCell>
-                        <TableCell align="center">Uploaded to</TableCell>
-                        <TableCell align="center">Status</TableCell>
-                        <TableCell align="center">Desired reception</TableCell>
-                        <TableCell align="center">Delivery date</TableCell>
+                        <TableCell>Nom</TableCell>
+                        <TableCell align="center">Taille</TableCell>
+                        <TableCell align="center">Type de contenu</TableCell>
+                        <TableCell align="center">Chargé le</TableCell>
+                        <TableCell align="center">Satut</TableCell>
+                        <TableCell align="center">Date de réception</TableCell>
+                        <TableCell align="center">Date de livraison</TableCell>
                         <TableCell align="center">Action</TableCell>
                         </TableRow>
                     </TableHead>

@@ -15,7 +15,7 @@ export const TotalProfit = (props) => (
             gutterBottom
             variant="overline"
           >
-            FILES IN PROCESS
+            Fichiers en traitement
           </Typography>
           <Typography
             color="textPrimary"
@@ -28,8 +28,8 @@ export const TotalProfit = (props) => (
           <Avatar
             sx={{
               backgroundColor: 'primary.main',
-              height: 56,
-              width: 56
+              height: 36,
+              width: 36
             }}
           >
             <FileUploadSharp />

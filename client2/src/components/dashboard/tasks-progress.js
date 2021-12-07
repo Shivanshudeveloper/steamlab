@@ -18,7 +18,7 @@ export const TasksProgress = (props) => (
             gutterBottom
             variant="overline"
           >
-            FILES INVOICED
+            Fichiers facturés
           </Typography>
           <Typography
             color="textPrimary"
@@ -31,8 +31,8 @@ export const TasksProgress = (props) => (
           <Avatar
             sx={{
               backgroundColor: 'warning.main',
-              height: 56,
-              width: 56
+              height: 36,
+              width: 36
             }}
           >
             <InsertChartIcon />

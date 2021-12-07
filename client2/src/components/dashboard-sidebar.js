@@ -20,12 +20,12 @@ const items = [
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    title: 'Tableau de bord'
   },
   {
     href: '/stlfiles',
     icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'STL Files Upload'
+    title: 'Envoyer un fichier STL'
   },
 ];
 

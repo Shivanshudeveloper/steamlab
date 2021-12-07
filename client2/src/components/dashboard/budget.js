@@ -19,7 +19,7 @@ export const Budget = (props) => {
             gutterBottom
             variant="overline"
           >
-            FILES UPLOADED
+            Fichiers envoyés
           </Typography>
           <Typography
             color="textPrimary"
