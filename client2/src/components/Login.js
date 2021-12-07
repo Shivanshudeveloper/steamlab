@@ -25,13 +25,13 @@ const Login = () => {
                         pathname: '/'
                     });
                 } else {
-                    setMessage('We have send a Verification Link on your Email Address');
+                    // alert("We have send a Verification Link on your Email Address")
                 }
             });
         })
         .catch(function(error) {
             var errorMessage = error.message;
-            setMessage(errorMessage);
+            alert(errorMessage);
         });
     }
 

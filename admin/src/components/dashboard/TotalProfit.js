@@ -6,9 +6,9 @@ import {
   Typography
 } from '@material-ui/core';
 import { indigo } from '@material-ui/core/colors';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import FileUploadSharp from '@material-ui/icons/FileUploadSharp';
 
-const TotalProfit = (props) => (
+export const TotalProfit = (props) => (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -20,26 +20,26 @@ const TotalProfit = (props) => (
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h6"
+            variant="overline"
           >
-            TOTAL PROFIT
+            FILES IN PROCESS
           </Typography>
           <Typography
             color="textPrimary"
-            variant="h3"
+            variant="h4"
           >
-            $23,200
+            {props.filesinprocess}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: indigo[600],
+              backgroundColor: indigo,
               height: 56,
               width: 56
             }}
           >
-            <AttachMoneyIcon />
+            <FileUploadSharp />
           </Avatar>
         </Grid>
       </Grid>
@@ -47,4 +47,4 @@ const TotalProfit = (props) => (
   </Card>
 );
 
-export default TotalProfit;
+export default TotalProfit

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Avatar,
   Box,
@@ -25,21 +26,21 @@ const TasksProgress = (props) => (
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h6"
+            variant="overline"
           >
-            TASKS PROGRESS
+            FILES INVOICED
           </Typography>
           <Typography
             color="textPrimary"
-            variant="h3"
+            variant="h4"
           >
-            75.5%
+            {props.filesinvoiced}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: orange[600],
+              backgroundColor: orange,
               height: 56,
               width: 56
             }}
@@ -48,14 +49,7 @@ const TasksProgress = (props) => (
           </Avatar>
         </Grid>
       </Grid>
-      <Box sx={{ pt: 3 }}>
-        <LinearProgress
-          value={75.5}
-          variant="determinate"
-        />
-      </Box>
     </CardContent>
   </Card>
 );
-
-export default TasksProgress;
+export default TasksProgress

@@ -1,5 +1,5 @@
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import FileUploadSharp from '@mui/icons-material/FileUploadSharp';
 
 export const TotalProfit = (props) => (
   <Card {...props}>
@@ -15,13 +15,13 @@ export const TotalProfit = (props) => (
             gutterBottom
             variant="overline"
           >
-            TOTAL PROFIT
+            FILES IN PROCESS
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            $23k
+            {props.filesinprocess}
           </Typography>
         </Grid>
         <Grid item>
@@ -32,7 +32,7 @@ export const TotalProfit = (props) => (
               width: 56
             }}
           >
-            <AttachMoneyIcon />
+            <FileUploadSharp />
           </Avatar>
         </Grid>
       </Grid>

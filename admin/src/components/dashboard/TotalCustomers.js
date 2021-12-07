@@ -8,10 +8,12 @@ import {
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 
 const TotalCustomers = (props) => (
-  <Card {...props}>
+  <Card
+    sx={{ height: '100%' }}
+    {...props}
+  >
     <CardContent>
       <Grid
         container
@@ -22,55 +24,31 @@ const TotalCustomers = (props) => (
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h6"
+            variant="overline"
           >
-            TOTAL CUSTOMERS
+            FILES DELIVERED
           </Typography>
           <Typography
             color="textPrimary"
-            variant="h3"
+            variant="h4"
           >
-            1,600
+            {props.filesdelivered}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: green[600],
+              backgroundColor: green,
               height: 56,
               width: 56
             }}
           >
-            <PeopleIcon />
+            <ArrowUpwardIcon />
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          pt: 2
-        }}
-      >
-        <ArrowUpwardIcon sx={{ color: green[900] }} />
-        <Typography
-          variant="body2"
-          sx={{
-            color: green[900],
-            mr: 1
-          }}
-        >
-          16%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
     </CardContent>
   </Card>
 );
 
-export default TotalCustomers;
+export default TotalCustomers

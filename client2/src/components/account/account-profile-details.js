@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,33 +7,51 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Snackbar
 } from '@mui/material';
+import { auth } from '../../Firebase';
 
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
+
 
 export const AccountProfileDetails = (props) => {
+  const [User, setUser] = React.useState({});
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: ''
   });
+
+  React.useEffect(() => {
+      auth.onAuthStateChanged(function(user) {
+          if (user) {
+            setUser(user);
+            var stringArray = (user.displayName).split(/(\s+)/);
+            console.log(stringArray);
+            setValues({
+              firstName: stringArray[0],
+              lastName: stringArray[2],
+              email: user.email
+            })
+          }
+      });
+  }, []);
+
+  
 
   const handleChange = (event) => {
     setValues({
@@ -42,7 +60,37 @@ export const AccountProfileDetails = (props) => {
     });
   };
 
+  const logout = () => {
+    auth.signOut().then(function() {
+      router.push('/');
+    }).catch(function(error) {
+        console.log(error);
+    });
+  }
+
+  const updateProfileUser = () => {
+    auth.onAuthStateChanged(function(user) {
+      if (user) {
+        user.updateProfile({
+            displayName: `${values.firstName} ${values.lastName}`,
+            email: values.email
+        })
+        .then(() => {
+            handleClick();
+        })
+        .catch(err => console.log(err))
+      }
+    });
+  }
+
   return (
+    <>
+    <Snackbar
+      open={open}
+      autoHideDuration={4000}
+      onClose={handleClose}
+      message="Profile Successfully Updated"
+    />
     <form
       autoComplete="off"
       noValidate
@@ -66,6 +114,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
+                autoFocus
                 helperText="Please specify the first name"
                 label="First name"
                 name="firstName"
@@ -82,6 +131,7 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
+                autoFocus
                 label="Last name"
                 name="lastName"
                 onChange={handleChange}
@@ -97,70 +147,32 @@ export const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
+                autoFocus
                 label="Email Address"
                 name="email"
+                disabled
                 onChange={handleChange}
                 required
                 value={values.email}
                 variant="outlined"
               />
             </Grid>
-            <Grid
+            {/* <Grid
               item
               md={6}
               xs={12}
             >
               <TextField
                 fullWidth
-                label="Phone Number"
-                name="phone"
+                autoFocus
+                label="New Password"
+                name="password"
                 onChange={handleChange}
-                type="number"
-                value={values.phone}
+                type="text"
+                value={values.password}
                 variant="outlined"
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Country"
-                name="country"
-                onChange={handleChange}
-                required
-                value={values.country}
-                variant="outlined"
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Select State"
-                name="state"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-              >
-                {states.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
+            </Grid> */}
           </Grid>
         </CardContent>
         <Divider />
@@ -172,7 +184,16 @@ export const AccountProfileDetails = (props) => {
           }}
         >
           <Button
+            color="error"
+            variant="outlined"
+            onClick={logout}
+            sx={{ mr: 2 }}
+          >
+            Logout
+          </Button>
+          <Button
             color="primary"
+            onClick={updateProfileUser}
             variant="contained"
           >
             Save details
@@ -180,5 +201,6 @@ export const AccountProfileDetails = (props) => {
         </Box>
       </Card>
     </form>
+    </>
   );
 };

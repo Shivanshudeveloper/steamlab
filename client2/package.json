@@ -13,6 +13,10 @@
     "lint-fix": "next lint --fix"
   },
   "dependencies": {
+    "@devexpress/dx-core": "^2.7.6",
+    "@devexpress/dx-react-chart": "^2.7.6",
+    "@devexpress/dx-react-chart-bootstrap4": "^2.7.6",
+    "@devexpress/dx-react-core": "^2.7.6",
     "@emotion/cache": "^11.5.0",
     "@emotion/react": "^11.5.0",
     "@emotion/server": "^11.4.0",

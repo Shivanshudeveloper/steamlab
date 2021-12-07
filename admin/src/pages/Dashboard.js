@@ -144,10 +144,10 @@ const Dashboard = () => {
         .catch((err) => console.log(err));
   }
 
-  const changeProduct = (id) => {
+  const changeProduct = (id, email, filename) => {
     axios
       .get(
-        `${API_SERVICE}/api/v1/main/changestatusfileupload/${id}/${status}`
+        `${API_SERVICE}/api/v1/main/changestatusfileupload/${id}/${status}/${filename}/${email}`
       )
       .then((response) => {
         refreshData();
@@ -206,7 +206,7 @@ const Dashboard = () => {
         </select>
 
         <Typography variant="h6" sx={{ mb: 2, mt: 2 }}>
-          User Name: {productview.s4hc4mbzw2vr}
+          User Name: {productview.userfullname}
         </Typography>
 
         <Typography variant="h6" sx={{ mb: 2, mt: 2 }} >
@@ -231,7 +231,7 @@ const Dashboard = () => {
         <Button onClick={handleClose} color="primary">
           Close
         </Button>
-        <Button onClick={() => changeProduct(productview._id)} color="primary" autoFocus>
+        <Button onClick={() => changeProduct(productview._id, productview.name, productview.useremail)} color="primary" autoFocus>
           Submit
         </Button>
       </DialogActions>

@@ -83,7 +83,6 @@ const stlfiles = () => {
 
     React.useEffect(() => {
         var email = sessionStorage.getItem("userEmail");
-        console.log(email);
         auth.onAuthStateChanged(function(user) {
             if (user) {
                 setUser(user);

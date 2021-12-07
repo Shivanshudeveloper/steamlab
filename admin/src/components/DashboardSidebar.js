@@ -32,9 +32,14 @@ const user = {
 const items = [
   {
     href: '/app/dashboard',
-    icon: BarChartIcon,
+    icon: LockIcon,
     title: 'Dashboard'
   },
+  {
+    href: '/app/analytics',
+    icon: BarChartIcon,
+    title: 'Analytics'
+  }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {

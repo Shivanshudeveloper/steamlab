@@ -6,11 +6,11 @@ import {
   Grid,
   Typography
 } from '@material-ui/core';
-import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
-import MoneyIcon from '@material-ui/icons/Money';
+import CloudDoneRounded from '@material-ui/icons/CloudDoneRounded';
 import { red } from '@material-ui/core/colors';
 
-const Budget = (props) => (
+const Budget = (props) => {
+  return (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -25,55 +25,33 @@ const Budget = (props) => (
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h6"
+            variant="overline"
           >
-            BUDGET
+            FILES UPLOADED
           </Typography>
           <Typography
             color="textPrimary"
-            variant="h3"
+            variant="h4"
           >
-            $24,000
+            {props.filesuploaded}
           </Typography>
         </Grid>
         <Grid item>
           <Avatar
             sx={{
-              backgroundColor: red[600],
+              backgroundColor: red,
               height: 56,
               width: 56
             }}
           >
-            <MoneyIcon />
+            <CloudDoneRounded />
           </Avatar>
         </Grid>
       </Grid>
-      <Box
-        sx={{
-          pt: 2,
-          display: 'flex',
-          alignItems: 'center'
-        }}
-      >
-        <ArrowDownwardIcon sx={{ color: red[900] }} />
-        <Typography
-          sx={{
-            color: red[900],
-            mr: 1
-          }}
-          variant="body2"
-        >
-          12%
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="caption"
-        >
-          Since last month
-        </Typography>
-      </Box>
     </CardContent>
   </Card>
-);
+  );
+};
 
-export default Budget;
+export default Budget
+

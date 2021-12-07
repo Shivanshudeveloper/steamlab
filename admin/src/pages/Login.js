@@ -27,8 +27,8 @@ const Login = () => {
       .then(() => {
           auth.onAuthStateChanged(function(user) {
               if (user) {
-                  sessionStorage.setItem("userId", user.uid);
-                  sessionStorage.setItem("userEmail", user.email);
+                  localStorage.setItem("userId", user.uid);
+                  localStorage.setItem("userEmail", user.email);
                   window.location.href = "/app/dashboard";
               } else {
                   alert("Wrong Credentials")
