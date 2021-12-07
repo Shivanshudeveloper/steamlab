@@ -183,49 +183,58 @@ const stlfiles = () => {
 
     const firebaseUpload = () => {
         acceptedFiles.forEach((file) => {
-        var uniquetwoKey = uuid4();
-        const uploadTask = storage.ref(`uploadsfiles/${uniquetwoKey}/${file.name}`).put(file);
 
-        uploadTask.on('state_changed', (snapshot) => {
-            const progress =  Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-            setProgressOpen(true);
-            setProgressMessage(`Uploaded ${Math.floor(progress)}%`);
-        },
-        (error) => {
-        setProgressMessage(error);
-        },
-        async () => {
-            var size = byteSize(file.size);
-            size = `${size.value} ${size.unit}`
-            // When the Storage gets Completed
-            const filePath = await uploadTask.snapshot.ref.getDownloadURL();
-            var uploadData = {
-            useremail: User.email,
-            userfullname: User.displayName,
-            userphone,
-            name: file.path,
-            cut: size,
-            content: file.type,
-            uploaded_to: new Date().toLocaleDateString(),
-            status: "Received",
-            reception: comment,
-            delivery_date: deliveryDate,
-            publicURL: filePath
-            };
-            axios
-            .post(`${API_SERVICE}/api/v1/main/addfileuploadtoserver`, uploadData)
-            .then((response) => {
-                if (response.status === 200) {
+        var fileNameFielUpload = file.name;
+        var extension = fileNameFielUpload.split('.').pop();
+        
+        if ( extension === "zip" || extension === "rar" ) {
+            var uniquetwoKey = uuid4();
+            const uploadTask = storage.ref(`uploadsfiles/${uniquetwoKey}/${file.name}`).put(file);
+
+            uploadTask.on('state_changed', (snapshot) => {
+                const progress =  Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
                 setProgressOpen(true);
-                setProgressMessage(`File Successfully Send`);
-                refreshData();
-                setInterval(() => {
-                    setProgressOpen(false);
-                }, 4000);
-                }
-            })
-            .catch((err) => console.log(err));
-        });
+                setProgressMessage(`Uploaded ${Math.floor(progress)}%`);
+            },
+            (error) => {
+            setProgressMessage(error);
+            },
+            async () => {
+                var size = byteSize(file.size);
+                size = `${size.value} ${size.unit}`
+                // When the Storage gets Completed
+                const filePath = await uploadTask.snapshot.ref.getDownloadURL();
+                var uploadData = {
+                useremail: User.email,
+                userfullname: User.displayName,
+                userphone,
+                name: file.path,
+                cut: size,
+                content: file.type,
+                uploaded_to: new Date().toLocaleDateString(),
+                status: "Received",
+                reception: comment,
+                delivery_date: deliveryDate,
+                publicURL: filePath
+                };
+                axios
+                .post(`${API_SERVICE}/api/v1/main/addfileuploadtoserver`, uploadData)
+                .then((response) => {
+                    if (response.status === 200) {
+                    setProgressOpen(true);
+                    setProgressMessage(`File Successfully Send`);
+                    refreshData();
+                    setInterval(() => {
+                        setProgressOpen(false);
+                    }, 4000);
+                    }
+                })
+                .catch((err) => console.log(err));
+            });
+        } else {
+            alert(`Only ZIP and RAR Files are allowed, Cannot upload ${file.name}`);
+        }
+
         });
     };
 
