@@ -113,8 +113,8 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          subheader="The information can be edited"
-          title="Profile"
+          subheader="Les informations peuvent être modifiées"
+          title="Profil"
         />
         <Divider />
         <CardContent>
@@ -131,7 +131,7 @@ export const AccountProfileDetails = (props) => {
                 fullWidth
                 autoFocus
                 helperText="Please specify the first name"
-                label="First name"
+                label="Prénom"
                 name="firstName"
                 onChange={handleChange}
                 required
@@ -147,7 +147,7 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 autoFocus
-                label="Last name"
+                label="Nom"
                 name="lastName"
                 onChange={handleChange}
                 required
@@ -163,7 +163,7 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 autoFocus
-                label="Email Address"
+                label="Adresse mail"
                 name="email"
                 disabled
                 onChange={handleChange}
@@ -180,7 +180,7 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 autoFocus
-                label="Billing Address"
+                label="Adresse de facturation"
                 name="billingaddress"
                 onChange={handleChange}
                 type="text"
@@ -196,7 +196,7 @@ export const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 autoFocus
-                label="VAT number"
+                label="Numéro TVA"
                 name="vat"
                 onChange={handleChange}
                 type="text"
@@ -220,14 +220,14 @@ export const AccountProfileDetails = (props) => {
             onClick={logout}
             sx={{ mr: 2 }}
           >
-            Logout
+            Se déconnecter
           </Button>
           <Button
             color="primary"
             onClick={updateProfileUser}
             variant="contained"
           >
-            Save details
+            Enregistrer
           </Button>
         </Box>
       </Card>

@@ -52,13 +52,13 @@ const ProductList = ({ product, deleteItem }) => {
           <TableCell align="center">
             {
                 product.status === "Received" ? (
-                    <Chip sx={{ backgroundColor: '#3366FF', color: '#FFFFFF' }} label={product.status} />
+                    <Chip sx={{ backgroundColor: '#FFC311', color: '#FFFFFF' }} label={product.status} />
                 ) : product.status === "In process" ? (
-                    <Chip sx={{ backgroundColor: '#FFC311', color: '#000000' }} label={product.status} />
+                    <Chip sx={{ backgroundColor: '#3366FF', color: '#000000' }} label={product.status} />
                 ) : product.status === "Delivered" ? (
-                    <Chip sx={{ backgroundColor: '#31CFF7', color: '#000000' }} label={product.status} />
+                    <Chip sx={{ backgroundColor: '#D14343', color: '#000000' }} label={product.status} />
                 ) : product.status === "Invoiced" ? (
-                    <Chip sx={{ backgroundColor: '#4DAA25', color: '#FFFFFF' }} label={product.status} />
+                    <Chip sx={{ backgroundColor: '#FFB020', color: '#000000' }} label={product.status} />
                 ) : null
             }
 

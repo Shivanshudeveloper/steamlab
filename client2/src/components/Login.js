@@ -60,14 +60,14 @@ const Login = () => {
                         color="textPrimary"
                         variant="h4"
                     >
-                        Sign in
+                        Connexion
                     </Typography>
                     <Typography
                         color="textSecondary"
                         gutterBottom
                         variant="body2"
                     >
-                        Sign in on the internal platform
+                        {/* Sign in on the internal platform */}
                     </Typography>
                 </Box>
                 
@@ -80,7 +80,7 @@ const Login = () => {
                 <TextField
                 fullWidth
                 margin="normal"
-                label="Email address"
+                label="Email"
                 name="email"
                 onChange={(event) => setEmail(event.target.value)}
                 type="email"
@@ -90,7 +90,7 @@ const Login = () => {
 
                 <TextField
                 fullWidth
-                label="Password"
+                label="Mot de passe"
                 margin="normal"
                 name="password"
                 type="password"
@@ -106,14 +106,14 @@ const Login = () => {
                     type="button"
                     variant="contained"
                 >
-                    Sign In Now
+                    Se connecter
                 </Button>
                 </Box>
                 <Typography
                 color="textSecondary"
                 variant="body2"
                 >
-                Don&apos;t have an account?
+                Vous n'avez pas de compte ?
                 {' '}
                 <NextLink
                     href="/register"
@@ -126,7 +126,7 @@ const Login = () => {
                         cursor: 'pointer',
                     }}
                     >
-                    Sign Up
+                    Inscription
                     </Link>
                 </NextLink>
                 </Typography>

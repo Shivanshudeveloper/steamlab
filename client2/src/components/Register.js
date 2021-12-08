@@ -75,27 +75,27 @@ const Register = () => {
                         color="textPrimary"
                         variant="h4"
                     >
-                        Create a new account
+                        Créer un compte
                     </Typography>
                     <Typography
                         color="textSecondary"
                         gutterBottom
                         variant="body2"
                     >
-                        Use your email to create a new account
+                        {/* Use your email to create a new account */}
                     </Typography>
                     </Box>
                     <TextField
                     fullWidth
                     margin="normal"
-                    label="First Name"
+                    label="Prénom"
                     name="firstName"
                     onChange={(event) => setfirstname(event.target.value)}
                     variant="outlined"
                     />
                     <TextField
                     fullWidth
-                    label="Last Name"
+                    label="Nom"
                     margin="normal"
                     name="lastName"
                     onChange={(event) => setlastname(event.target.value)}
@@ -104,7 +104,7 @@ const Register = () => {
                     <TextField
                     fullWidth
                     margin="normal"
-                    label="Email Address"
+                    label="Adresse mail"
                     onChange={(event) => setEmail(event.target.value)}
                     name="email"
                     type="email"
@@ -112,7 +112,7 @@ const Register = () => {
                     />
                     <TextField
                     fullWidth
-                    label="Password"
+                    label="Mot de passe"
                     onChange={(event) => setPassword(event.target.value)}
                     margin="normal"
                     name="password"
@@ -166,14 +166,14 @@ const Register = () => {
                         disabled={btndisabled}
                         variant="contained"
                     >
-                        Sign Up Now
+                        Inscription
                     </Button>
                     </Box>
                     <Typography
                     color="textSecondary"
                     variant="body2"
                     >
-                    Have an account?
+                    Vous avez déjà un compte ?
                     {' '}
                     <NextLink
                         href="/login"
@@ -187,7 +187,7 @@ const Register = () => {
                                 cursor: 'pointer',
                             }}
                         >
-                        Sign In
+                        Connexion
                         </Link>
                     </NextLink>
                     </Typography>
