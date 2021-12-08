@@ -51,14 +51,14 @@ const ProductList = ({ product, deleteItem }) => {
           <TableCell align="center">{product.uploaded_to}</TableCell>
           <TableCell align="center">
             {
-                product.status === "A reçu" ? (
-                    <Chip sx={{ backgroundColor: '#FFC311', color: '#FFFFFF' }} label={product.status} />
-                ) : product.status === "En cours" ? (
-                    <Chip sx={{ backgroundColor: '#3366FF', color: '#000000' }} label={product.status} />
-                ) : product.status === "Livré" ? (
-                    <Chip sx={{ backgroundColor: '#D14343', color: '#000000' }} label={product.status} />
-                ) : product.status === "Facturé" ? (
-                    <Chip sx={{ backgroundColor: '#FFB020', color: '#000000' }} label={product.status} />
+                product.status === "Received" ? (
+                    <Chip sx={{ backgroundColor: '#FFC311', color: '#FFFFFF' }} label="A reçu" />
+                ) : product.status === "In process" ? (
+                    <Chip sx={{ backgroundColor: '#3366FF', color: '#FFFFFF' }} label="En cours" />
+                ) : product.status === "Delivered" ? (
+                    <Chip sx={{ backgroundColor: '#D14343', color: '#FFFFFF' }} label="Livré" />
+                ) : product.status === "Invoiced" ? (
+                    <Chip sx={{ backgroundColor: '#FFB020', color: '#FFFFFF' }} label="Facturé" />
                 ) : null
             }
 
@@ -212,7 +212,7 @@ const stlfiles = () => {
                 cut: size,
                 content: file.type,
                 uploaded_to: new Date().toLocaleDateString(),
-                status: "A reçu",
+                status: "Received",
                 reception: comment,
                 delivery_date: deliveryDate,
                 publicURL: filePath
@@ -321,13 +321,13 @@ const stlfiles = () => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">STL File Upload</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Pensez à zipper vos commandes avant envoi</DialogTitle>
                 <DialogContent>
                 <Container>
                     <section className="dropzone" {...getRootProps()}>
                     <div >
                         <input {...getInputProps()} />
-                        <p>Drag 'n' drop some files here, or click to select files</p>
+                        <p>Glissez vos fichiers ici, ou cliquez pour sélectionner un fichier</p>
                     </div>
                     <aside>
                         <h4>Files</h4>
@@ -369,9 +369,9 @@ const stlfiles = () => {
                 </Container>
                 </DialogContent>
                 <DialogActions>
-                <Button size="large" onClick={handleClose}>Close</Button>
+                <Button size="large" onClick={handleClose}>Fermer</Button>
                 <Button size="large" onClick={fileSubmit} autoFocus>
-                    Submit
+                    Envoyer
                 </Button>
                 </DialogActions>
             </Dialog>

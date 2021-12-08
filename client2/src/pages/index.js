@@ -39,25 +39,25 @@ const Dashboard = () => {
               for (const object in obj) {
                 if ( object === "totalfileuploaded" ) {
                   var temp = {
-                    year: 'File Uploaded',
+                    year: 'Fichiers envoyés',
                     population: obj[object]
                   };
                   chartData.push(temp);
                 } else if ( object === "totalfiledelivered" ) {
                   var temp = {
-                    year: 'File Delivered',
+                    year: 'Fichiers livrés',
                     population: obj[object]
                   };
                   chartData.push(temp);
                 } else if ( object === "totalfileinvoiced" ) {
                   var temp = {
-                    year: 'File Invoiced',
+                    year: 'Fichiers facturés',
                     population: obj[object]
                   };
                   chartData.push(temp);
                 } else if ( object === "totalfileinprocess" ) {
                   var temp = {
-                    year: 'File In Process',
+                    year: 'Fichiers en traitement',
                     population: obj[object]
                   };
                   chartData.push(temp);

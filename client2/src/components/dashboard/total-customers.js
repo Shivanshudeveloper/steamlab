@@ -19,7 +19,7 @@ export const TotalCustomers = (props) => (
             gutterBottom
             variant="overline"
           >
-            FILES DELIVERED
+            Fichiers livrés
           </Typography>
           <Typography
             color="textPrimary"

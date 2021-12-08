@@ -225,10 +225,10 @@ const Dashboard = () => {
         </Typography>
         <select onChange={(e) => setstatus(e.target.value)} style={{ width: '100%', padding: '10px', color: 'black', border: '2px solid black' }}>
           <option selected disabled>Change the Status</option>
-          <option value="A reçu">Received</option>
-          <option value="En cours">In process</option>
-          <option value="Livré">Delivered</option>
-          <option value="Facturé">Invoiced</option>
+          <option value="Received">Received</option>
+          <option value="In process">In process</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Invoiced">Invoiced</option>
         </select>
 
         <Typography variant="h6" sx={{ mb: 2, mt: 2 }}>
