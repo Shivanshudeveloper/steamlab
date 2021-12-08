@@ -51,13 +51,13 @@ const ProductList = ({ product, deleteItem }) => {
           <TableCell align="center">{product.uploaded_to}</TableCell>
           <TableCell align="center">
             {
-                product.status === "Received" ? (
+                product.status === "A reçu" ? (
                     <Chip sx={{ backgroundColor: '#FFC311', color: '#FFFFFF' }} label={product.status} />
-                ) : product.status === "In process" ? (
+                ) : product.status === "En cours" ? (
                     <Chip sx={{ backgroundColor: '#3366FF', color: '#000000' }} label={product.status} />
-                ) : product.status === "Delivered" ? (
+                ) : product.status === "Livré" ? (
                     <Chip sx={{ backgroundColor: '#D14343', color: '#000000' }} label={product.status} />
-                ) : product.status === "Invoiced" ? (
+                ) : product.status === "Facturé" ? (
                     <Chip sx={{ backgroundColor: '#FFB020', color: '#000000' }} label={product.status} />
                 ) : null
             }
@@ -212,7 +212,7 @@ const stlfiles = () => {
                 cut: size,
                 content: file.type,
                 uploaded_to: new Date().toLocaleDateString(),
-                status: "Received",
+                status: "A reçu",
                 reception: comment,
                 delivery_date: deliveryDate,
                 publicURL: filePath
