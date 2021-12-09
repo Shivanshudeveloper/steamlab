@@ -23,7 +23,7 @@ const items = [
     title: 'Tableau de bord'
   },
   {
-    href: '/stlfiles',
+    href: '/stlfiles.html',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Envoyer un fichier STL'
   },
