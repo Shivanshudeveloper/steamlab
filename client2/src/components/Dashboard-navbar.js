@@ -90,9 +90,10 @@ export const DashboardNavbar = (props) => {
   
 
   const redirect = () => {
-    router.push({
-        pathname: '/account'
-    });
+    // router.push({
+    //     pathname: '/account'
+    // });
+    window.location.href = "account.html";
   }
 
   return (
