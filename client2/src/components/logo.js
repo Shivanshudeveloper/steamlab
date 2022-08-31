@@ -8,7 +8,7 @@ export const Logo = styled((props) => {
 
   return (
     <>
-      <img style={{ width: '200px' }} alt="Steamlabs" src="https://res.cloudinary.com/dx9dnqzaj/image/upload/v1638719652/fileuploadproject3d/logo_wwfypc-removebg-preview_a39t4q.png" />
+      <img style={{ width: '200px' }} alt="Steamlabs" src="https://res.cloudinary.com/dlshlmi6j/image/upload/v1661949968/logos/logo_ashqgj.png" />
     </>
   );
 })``;

@@ -68,7 +68,7 @@ const Register = () => {
             <Container maxWidth="sm">
                 <form >
                     <center>
-                        <img style={{ width: '30%', marginBottom: '30px' }} src="https://res.cloudinary.com/dx9dnqzaj/image/upload/v1638790703/fileuploadproject3d/Plan_de_travail_1_seli1r.png" alt="Logo" />
+                        <img style={{ width: '30%', marginBottom: '30px' }} src="https://res.cloudinary.com/dlshlmi6j/image/upload/v1661948955/logos/Plan_de_travail_1_vcsz05.png" alt="Logo" />
                     </center>
                     <Box sx={{ my: 3 }}>
                     <Typography
